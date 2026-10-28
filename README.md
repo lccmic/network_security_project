@@ -4,7 +4,6 @@
 
 *Lecca Michela*
 
-
 ## Abstract
 This project implements a simulated secure, low-latency network infrastructure for a mission-critical IoT fire alert system.
 The project compares **QUIC (UDP)** over legacy **TCP**, uses **IPsec (ESP in Transport Mode)** for payload confidentiality a **firewall** for perimeter hardening and implements a custom Python **Network Traffic Classifier (NTC)** to detect and mitigate volumetric DoS attacks autonomously.
@@ -54,12 +53,12 @@ sudo ./setup_ipsec.sh
 ## How to Run
 
 ### 1. Legacy TCP Test (Latency Comparison)
-* **Server:** `python3 server_tcp.py`
-* **Client:** `python3 client_tcp.py`
+* **Server:** Start the tcp server: `python3 server_tcp.py`
+* **Client:** Send the sensor data through tcp `python3 client_tcp.py`
 
 ### 2. Secure QUIC Infrastructure
-* **Server:** `python3 server_emergency.py`
-* **Client:** `python3 client_sensor.py`
+* **Server:** Start the quic server `python3 server_emergency.py`
+* **Client:** Send the sensor data `python3 client_sensor.py`
 
 *(Check `tshark -i enp0s3 -Y "esp"` to verify ESP encapsulation)*
 
