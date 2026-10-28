@@ -9,9 +9,16 @@ This project implements a simulated secure, low-latency network infrastructure f
 The project compares **QUIC (UDP)** over legacy **TCP**, uses **IPsec (ESP in Transport Mode)** for payload confidentiality a **firewall** for perimeter hardening and implements a custom Python **Network Traffic Classifier (NTC)** to detect and mitigate volumetric DoS attacks autonomously.
 
 ## Structure
+**VM1 (IoT Sensor Client):** `10.0.1.2` :IoT Telemetry Publisher & DoS Flood Generator
+
 * `client_sensor.py`: Asynchronous QUIC telemetry publisher (aioquic)
 * `client_tcp.py`: Legacy TCP control baseline publisher
-* ` client_flood.py`: Volumetric UDP flood generator for DoS testing
+* `client_flood.py`: Volumetric UDP flood generator for DoS testing
+* `firewall_rules.txt` :Saved iptables policy configuration 
+* `ipsec_setup.sh `: Shell script to inject kernel ipsec XFRM SAs and SPs
+* `remove_ipsec.sh`: Shell script to flush kernel IPsec policies
+
+**VM2 (Emergency Server):** `10.0.1.1`: QUIC/TCP Receiver, Firewall & NTC Detector
 * `server_emergency.py`: Asynchronous QUIC emergency alert listener (Port 4433)
 * `server_tcp.py`: Legacy TCP receiver listener (Port 4434)
 * `ntc_detector.py`: Real-time traffic analyzer / automated firewall mitigator
@@ -20,9 +27,7 @@ The project compares **QUIC (UDP)** over legacy **TCP**, uses **IPsec (ESP in Tr
 * `remove_ipsec.sh`: Shell script to flush kernel IPsec policies
 
 
-## network infratructure
-* **VM1 (IoT Sensor Client):** `10.0.1.2` :IoT Telemetry Publisher & DoS Flood Generator
-* **VM2 (Emergency Server):** `10.0.1.1`: QUIC/TCP Receiver, Firewall & NTC Detector
+
 
 ## Prerequisites
 * 2x Ubuntu Server VMs connected via VirtualBox Internal Network
